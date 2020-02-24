@@ -51,3 +51,30 @@ a {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.body-hidden {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  overflow-y: scroll;
+}
+
+.hide-md-down {
+  display: none!important;
+}
+
+.hide-md-up {
+  display: unset!important;
+}
+
+@media (min-width: 992px) {
+  .hide-md-up {
+    display: none !important;
+  }
+  .hide-md-down {
+    display: unset !important;
+  }
+}
+

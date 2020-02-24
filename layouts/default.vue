@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import PageHeader from '~/components/PageHeader.vue';
 import PageFooter from '~/components/PageFooter.vue';
 
@@ -18,6 +19,20 @@ export default {
     PageHeader,
     PageFooter,
   },
+  computed: {
+    ...mapState({
+      isVisible: state => state.the_menu.isVisible,
+    }),
+  },
+  watch: {
+    isVisible(value) {
+      if (value) {
+        document.body.classList.add('body-hidden');
+      } else {
+        document.body.classList.remove('body-hidden');
+      }
+    }
+  }
 };
 </script>
 

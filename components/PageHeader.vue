@@ -24,11 +24,7 @@
       <div class="logo">
         <a href="/"><img src="/logo.png" alt="ГдеМатериал.Ру"></a> <!--TODO(iNerV) do dynamically link-->
       </div>
-      <div class="main-navigation__burger">
-        <button class="main-navigation__open-menu-btn">
-          Menu
-        </button>
-      </div>
+      <the-menu class="main-navigation__burger"/>
       <div class="main-navigation__search">
         <input class="main-navigation__input" type="search" placeholder="search">
       </div>
@@ -95,8 +91,12 @@
 </template>
 
 <script>
+import TheMenu from './TheMenu.vue';
 export default {
   name: 'PageHeader',
+  components: {
+    TheMenu,
+  },
 };
 </script>
 
