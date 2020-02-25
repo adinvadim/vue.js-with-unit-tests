@@ -1,18 +1,19 @@
 <template>
   <ul class="mobile-column">
-    <li class="mobile-column__item_back" v-if="parentItem != null">
+    <li v-if="parentItem != null" class="mobile-column__item_back">
       <a class="mobile-column__link" @click.prevent="$emit('back')">
         Назад
       </a>
     </li>
     <li
-      class="mobile-column__item"
-      v-for="item in items" :key="item.id"
+      v-for="item in items"
+      :key="item.id" class="mobile-column__item"
     >
       <a
         class="mobile-column__link"
         :href="itemSlug(item)"
-        @click="handleClick($event, item)">
+        @click="handleClick($event, item)"
+      >
         {{ item.name }}
       </a>
     </li>
@@ -20,7 +21,8 @@
 </template>
 
 <script>
-import pathJoin from '@/utils/pathJoin';
+import pathJoin from '~/utils/pathJoin';
+
 export default {
   props: {
     items: {
@@ -29,21 +31,21 @@ export default {
     },
     value: {
       required: true,
-      validator: prop => typeof prop === 'object' || prop == null,
+      validator: (prop) => typeof prop === 'object' || prop == null,
     },
     parentItem: {
       default: null,
-      validator: prop => typeof prop === 'object' || prop == null,
-    }
+      validator: (prop) => typeof prop === 'object' || prop == null,
+    },
   },
   data() {
     return {
       timeoutId: null,
-    }
+    };
   },
   methods: {
     itemSlug(item) {
-      const parentSlug = this.parentItem != null ? `/${this.parentItem.path}/` : '/catalog/'
+      const parentSlug = this.parentItem != null ? `/${this.parentItem.path}/` : '/catalog/';
       return pathJoin([parentSlug, item.slug]);
     },
     handleClick($event, item) {
@@ -52,9 +54,9 @@ export default {
         this.$emit('input', {
           ...item,
           path: this.itemSlug(item),
-        })
+        });
       }
-    }
+    },
   },
 };
 </script>

@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     ...mapState({
-      isVisible: state => state.the_menu.isVisible,
+      isVisible: (state) => state.the_menu.isVisible,
     }),
   },
   watch: {
@@ -31,8 +31,8 @@ export default {
       } else {
         document.body.classList.remove('body-hidden');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,11 +1,11 @@
 <template>
   <ul class="column">
     <li
-      class="column__item"
-      :class="{
+      v-for="item in items"
+      :key="item.id"
+      class="column__item" :class="{
         'column__item_active': value && value.id === item.id,
       }"
-      v-for="item in items" :key="item.id"
       @mouseenter="handleMouseEnter(item)"
       @mouseleave="handleMouseLeave"
     >
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import pathJoin from '@/utils/pathJoin';
+import pathJoin from '~/utils/pathJoin';
+
 export default {
   props: {
     items: {
@@ -26,21 +27,21 @@ export default {
     },
     value: {
       required: true,
-      validator: prop => typeof prop === 'object' || prop == null,
+      validator: (prop) => typeof prop === 'object' || prop == null,
     },
     parentItem: {
       default: null,
-      validator: prop => typeof prop === 'object' || prop == null,
-    }
+      validator: (prop) => typeof prop === 'object' || prop == null,
+    },
   },
   data() {
     return {
       timeoutId: null,
-    }
+    };
   },
   methods: {
     itemSlug(item) {
-      const parentSlug = this.parentItem != null ? `/${this.parentItem.path}/` : '/catalog/'
+      const parentSlug = this.parentItem != null ? `/${this.parentItem.path}/` : '/catalog/';
       return pathJoin([parentSlug, item.slug]);
     },
     handleMouseEnter(item) {
@@ -64,7 +65,7 @@ export default {
           path: this.itemSlug(item),
         });
       }
-    }
+    },
 
   },
 };

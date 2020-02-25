@@ -4,16 +4,17 @@
       Menu
     </button>
     <div class="hide-md-up">
-      <nav class="the-menu__nav" v-if="isVisible">
+      <nav v-if="isVisible" class="the-menu__nav">
         <mobile-column
+          :key="0"
           :items="data"
           :value="activeItems[0]"
-          :key="0"
-          @input="setActive(0, $event)"/>
+          @input="setActive(0, $event)"
+        />
         <mobile-column
           v-for="(item, index) in activeItemsWithSubMenu"
-          :items="item.submenu"
           :key="index + 1"
+          :items="item.submenu"
           :value="activeItems[index + 1]"
           :parent-item="activeItemsWithSubMenu[index]"
           @input="setActive(index + 1, $event)"
@@ -21,23 +22,24 @@
         />
       </nav>
     </div>
-   <div class="hide-md-down">
-    <nav class="the-menu__nav" v-if="isVisible">
-      <column
-        :items="data"
-        :value="activeItems[0]"
-        :key="0"
-        @input="setActive(0, $event)"/>
-      <column
-        v-for="(item, index) in activeItemsWithSubMenu"
-        :items="item.submenu"
-        :key="index + 1"
-        :value="activeItems[index + 1]"
-        :parent-item="activeItemsWithSubMenu[index]"
-        @input="setActive(index + 1, $event)"
-      />
-    </nav>
-   </div>
+    <div class="hide-md-down">
+      <nav v-if="isVisible" class="the-menu__nav">
+        <column
+          :key="0"
+          :items="data"
+          :value="activeItems[0]"
+          @input="setActive(0, $event)"
+        />
+        <column
+          v-for="(item, index) in activeItemsWithSubMenu"
+          :key="index + 1"
+          :items="item.submenu"
+          :value="activeItems[index + 1]"
+          :parent-item="activeItemsWithSubMenu[index]"
+          @input="setActive(index + 1, $event)"
+        />
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -58,11 +60,18 @@ export default {
   },
   computed: {
     ...mapState({
-      data: state => state.the_menu.menu,
-      isVisible: state => state.the_menu.isVisible,
+      data: (state) => state.the_menu.menu,
+      isVisible: (state) => state.the_menu.isVisible,
     }),
     activeItemsWithSubMenu() {
-      return this.activeItems.filter(item => item && item.submenu != null);
+      return this.activeItems.filter((item) => item && item.submenu != null);
+    },
+  },
+  watch: {
+    isVisible(value) {
+      if (!value) {
+        this.activeItems = [];
+      }
     },
   },
   methods: {
@@ -74,13 +83,6 @@ export default {
       this.activeItems.splice(index, this.activeItems.length, item);
     },
   },
-  watch: {
-    isVisible(value) {
-      if (!value) {
-        this.activeItems = [];
-      }
-    }
-  }
 };
 </script>
 

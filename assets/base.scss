@@ -62,19 +62,19 @@ a {
 }
 
 .hide-md-down {
-  display: none!important;
+  display: none;
 }
 
 .hide-md-up {
-  display: unset!important;
+  display: unset;
 }
 
 @media (min-width: 992px) {
   .hide-md-up {
-    display: none !important;
+    display: none;
   }
   .hide-md-down {
-    display: unset !important;
+    display: unset;
   }
 }
 
